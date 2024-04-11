@@ -8,6 +8,7 @@
     system = "x86_64-linux";
 
 # configure pkgs
+
     nixpkgs-patched =
         (import nixpkgs { system = system; }).applyPatches {
             name = "nixpkgs-patched";
@@ -64,6 +65,15 @@
                 url = "github:nix-community/home-manager";
                 inputs.nixpkgs.follows = "nixpkgs";
             };
+            # android-nixpkgs = {
+            #     url = "github:tadfisher/android-nixpkgs";
+            #     inputs.nixpkgs.follows = "nixpkgs";
+            # };
+            # flutter-nix = {
+            #     url = "github:maximoffua/flutter.nix";
+            #     inputs.nixpkgs.follows = "nixpkgs";
+            # };
+
         };
     };
 }
