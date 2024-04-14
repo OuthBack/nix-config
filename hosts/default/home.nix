@@ -102,7 +102,11 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/kitty/kitty.conf".source = "/etc/nixos/kitty.conf";
+    ".config/kitty" = {
+        source = "/etc/nixos/kitty.conf";
+        target = "kitty";
+        recursive = true;
+    };
 
   };
 
