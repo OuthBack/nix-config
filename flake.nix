@@ -75,5 +75,6 @@
             # };
 
         };
+        submodules = true;
     };
 }
