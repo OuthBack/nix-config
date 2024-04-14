@@ -1,4 +1,4 @@
-{ pkgs, userSettings, ... }:
+{ pkgs, userSettings, lib, ... }:
 
 {
   imports = [
@@ -102,6 +102,8 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/kitty/kitty.conf".source = "/etc/nixos/kitty.conf";
+
   };
 
   # Home Manager can also manage your environment variables through
@@ -130,4 +132,5 @@
 
   # Allow unfree
   nixpkgs.config.allowUnfree = true;
-}
+
+  }
