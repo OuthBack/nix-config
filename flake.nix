@@ -1,5 +1,25 @@
 {
     description = "Nixos config flake";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        kitty-config = {
+            flake = false;
+            url = "git+file:./extra/kitty";
+        };
+# android-nixpkgs = {
+#     url = "github:tadfisher/android-nixpkgs";
+#     inputs.nixpkgs.follows = "nixpkgs";
+# };
+# flutter-nix = {
+#     url = "github:maximoffua/flutter.nix";
+#     inputs.nixpkgs.follows = "nixpkgs";
+# };
+
+    };
 
     outputs = { self, nixpkgs, home-manager, ... }@inputs: 
 
@@ -59,26 +79,5 @@
             ];
         };
 
-        inputs = {
-            nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-            home-manager = {
-                url = "github:nix-community/home-manager";
-                inputs.nixpkgs.follows = "nixpkgs";
-            };
-            kitty-config = {
-                flake = false;
-                url = "git+https://github.com/outhback/kitty-config";
-            };
-            # android-nixpkgs = {
-            #     url = "github:tadfisher/android-nixpkgs";
-            #     inputs.nixpkgs.follows = "nixpkgs";
-            # };
-            # flutter-nix = {
-            #     url = "github:maximoffua/flutter.nix";
-            #     inputs.nixpkgs.follows = "nixpkgs";
-            # };
-
-        };
-        submodules = true;
     };
 }
