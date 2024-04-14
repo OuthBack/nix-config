@@ -56,7 +56,7 @@
       kitty
       picom
       tmux
-      xclip
+      clipmenu
       polybar
       rofi
       flameshot
@@ -85,6 +85,8 @@
       obs-studio
       vlc
       gparted
+      dunst
+      libnotify
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

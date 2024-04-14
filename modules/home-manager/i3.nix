@@ -10,6 +10,7 @@ in {
     xsession.windowManager.i3.config.startup = [
       { command = "${sessionStart}"; notification = false; }
     ];
+
     systemd.user.targets.graphical-session-i3 = {
       Unit = {
         Description = "i3 X session";

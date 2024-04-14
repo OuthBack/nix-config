@@ -11,8 +11,7 @@ in
 {
   programs.kitty = {
     enable = true;
-    extraConfig = ''
-    '';
+    extraConfig = builtins.readFile ../../extra/kitty/kitty.conf;
   };
 
   programs.zsh = {

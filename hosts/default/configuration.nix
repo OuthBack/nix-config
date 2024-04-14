@@ -77,6 +77,7 @@
       xfce = {
         enable = true;
         thunarPlugins = [ pkgs.xfce.thunar-archive-plugin ];
+        
       };
     };
   };
