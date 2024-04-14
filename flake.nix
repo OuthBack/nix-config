@@ -6,10 +6,6 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        kitty-config = {
-            flake = false;
-            url = "git+file:./extra/kitty";
-        };
 # android-nixpkgs = {
 #     url = "github:tadfisher/android-nixpkgs";
 #     inputs.nixpkgs.follows = "nixpkgs";

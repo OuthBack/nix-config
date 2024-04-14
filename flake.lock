@@ -20,22 +20,6 @@
         "type": "github"
       }
     },
-    "kitty-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713112273,
-        "narHash": "sha256-qp+Cbsh5ipGA56NajD0bTs1XQE4LbfkNY2idIjvOtMg=",
-        "ref": "refs/heads/main",
-        "rev": "41ea4b4177c49954bc8ac5f76fb5dfa2556d1793",
-        "revCount": 2,
-        "type": "git",
-        "url": "file:./extra/kitty"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:./extra/kitty"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1712791164,
@@ -55,7 +39,6 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "kitty-config": "kitty-config",
         "nixpkgs": "nixpkgs"
       }
     }
