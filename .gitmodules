@@ -1,0 +1,3 @@
+[submodule "extra/kitty"]
+	path = extra/kitty
+	url = git@github.com:OuthBack/kitty-config.git
