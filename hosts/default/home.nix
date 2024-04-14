@@ -103,8 +103,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/kitty" = {
-        source = "/etc/nixos/kitty.conf";
-        target = "kitty";
+        source = "/etc/nixos/extra/kitty";
         recursive = true;
     };
 
