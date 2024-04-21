@@ -1,4 +1,4 @@
-{ pkgs, userSettings, lib, ... }:
+{ pkgs, userSettings, ... }:
 
 {
   imports = [
@@ -87,6 +87,7 @@
       gparted
       dunst
       libnotify
+      direnv
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -128,10 +129,20 @@
     EDITOR = userSettings.editor;
     TERM = userSettings.term;
     BROWSER = userSettings.browser;
+    ANDROID_AVD_HOME = "/home/henrique/repositorios/wonderscore/.android/avd";
+    ANDROID_SDK_ROOT = "/home/henrique/repositorios/wonderscore/android-sdk";
+    ANDROID_HOME = "/home/henrique/repositorios/wonderscore";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+# Let Home Manager install and manage itself.
+      home-manager.enable = true;
+      direnv = {
+          enable = true;
+          enableBashIntegration = true; # see note on other shells below
+              nix-direnv.enable = true;
+      };
+  };
 
   # Allow unfree
   nixpkgs.config.allowUnfree = true;
