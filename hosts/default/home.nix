@@ -106,7 +106,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/kitty" = {
-        source = builtins.outputOf kitty-config "out";
+        source = "../../extra/kitty";
         recursive = true;
     };
 
