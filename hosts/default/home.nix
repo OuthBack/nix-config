@@ -1,4 +1,4 @@
-{ pkgs, userSettings, ... }:
+{ pkgs, userSettings, kitty-config, ... }:
 
 {
   imports = [
@@ -106,7 +106,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/kitty" = {
-        source = "../../extra/kitty";
+        source = builtins.outputOf kitty-config "out";
         recursive = true;
     };
 

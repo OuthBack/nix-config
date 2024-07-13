@@ -20,7 +20,41 @@
         "type": "github"
       }
     },
+    "kitty-config": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1720889888,
+        "narHash": "sha256-uPfuKARd2SSTkTInhfc1QS205oSAfzLHfiS4/9x9nX8=",
+        "owner": "OuthBack",
+        "repo": "kitty-config",
+        "rev": "3727b085ac8684a0c45e9b7105ed5948379b190c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OuthBack",
+        "repo": "kitty-config",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1720542800,
+        "narHash": "sha256-ZgnNHuKV6h2+fQ5LuqnUaqZey1Lqqt5dTUAiAnqH0QQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "feb2849fdeb70028c70d73b848214b00d324a497",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1718530797,
         "narHash": "sha256-pup6cYwtgvzDpvpSCFh1TEUjw2zkNpk8iolbKnyFmmU=",
@@ -39,7 +73,8 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "kitty-config": "kitty-config",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },
