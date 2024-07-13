@@ -106,7 +106,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/kitty" = {
-        source = "../../extra/kitty";
+        source = ../../extra/kitty;
         recursive = true;
     };
 
