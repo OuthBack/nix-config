@@ -59,8 +59,8 @@
   services.xserver = {
     videoDrivers = ["nvidia"];
     enable = true;
-    layout = "br";
-    xkbVariant = "";
+    layout = "us";
+    xkbVariant = "intl";
     windowManager = {
         i3 = {
             enable = true;

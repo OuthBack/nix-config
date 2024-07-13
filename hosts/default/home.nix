@@ -65,7 +65,7 @@
       ripgrep
       barrier
       bitwarden
-      nodejs_21
+      nodejs_22
       cargo
       libreoffice
       obsidian
@@ -88,6 +88,8 @@
       dunst
       libnotify
       direnv
+      zoom-us
+      teamspeak_client
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -104,7 +106,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/kitty" = {
-        source = "/etc/nixos/extra/kitty";
+        source = "../../extra/kitty";
         recursive = true;
     };
 
