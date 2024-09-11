@@ -90,6 +90,7 @@
       direnv
       zoom-us
       teamspeak_client
+      inotify-tools
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
