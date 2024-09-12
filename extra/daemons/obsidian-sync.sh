@@ -65,7 +65,7 @@ SYNC_SCRIPT=$(realpath $0)
 notify() {
     MESSAGE=$1
     if test ${NOTIFY_ENABLE} = "true"; then
-        notify-send "rclone ${RCLONE_REMOTE}" "${MESSAGE}" -i ../assets/images/obisidian-icon.svg
+        notify-send -i ../assets/images/obisidian-icon.png "rclone ${RCLONE_REMOTE}" "${MESSAGE}" 
     fi
 }
 
