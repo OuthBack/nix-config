@@ -31,6 +31,7 @@
 ## Edit the variables below, according to your own environment:
 
 # RCLONE_SYNC_PATH: The path to COPY FROM (files are not synced TO here):
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/${UID}/bus}"
 RCLONE_SYNC_PATH="/home/henrique/Documents/Obsidian"
 
 # RCLONE_REMOTE: The rclone remote name to synchronize with.
@@ -64,7 +65,7 @@ SYNC_SCRIPT=$(realpath $0)
 notify() {
     MESSAGE=$1
     if test ${NOTIFY_ENABLE} = "true"; then
-        notify-send "rclone ${RCLONE_REMOTE}" "${MESSAGE}"
+        notify-send "rclone ${RCLONE_REMOTE}" "${MESSAGE}" -i ../assets/images/obisidian-icon.svg
     fi
 }
 

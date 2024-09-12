@@ -150,4 +150,19 @@
   # Allow unfree
   nixpkgs.config.allowUnfree = true;
 
+  systemd.user.services.obsidian-sync = {
+      Unit = {
+          Description = "Run obsidian-sync.";
+      };
+      Service = {
+          Type = "notify";
+          ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh}";
+          Restart = "always";
+          RemainAfterExit = "no";
+          TimeoutSec = 0;
+      };
+      Install = {
+          WantedBy = [ "default.target" ];
+      };
+  };
   }
