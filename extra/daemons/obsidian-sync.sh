@@ -62,10 +62,20 @@ NOTIFY_ENABLE=true
 # SYNC_SCRIPT: dynamic reference to the current script path
 SYNC_SCRIPT=$(realpath $0)
 
+IMAGES_PATH=$1
+NOTIFY_SEND_BIN=$2
+CORE_UTILS_BIN=$3 
+INOTIFY_WAIT=$4
+
+sleep() {
+    $CORE_UTILS_BIN --coreutils-prog='sleep' $1
+}
+
 notify() {
     MESSAGE=$1
     if test ${NOTIFY_ENABLE} = "true"; then
-        notify-send -i ../assets/images/obisidian-icon.png "rclone ${RCLONE_REMOTE}" "${MESSAGE}" 
+        echo $IMAGES_PATH
+        $NOTIFY_SEND_BIN -i "${IMAGES_PATH}/obsidian-icon.svg" "RClone ${RCLONE_REMOTE}" "${MESSAGE}" 
     fi
 }
 
@@ -77,7 +87,7 @@ rclone_sync() {
     # Watch for file events and do continuous immediate syncing
     # and regular interval syncing:
     while [[ true ]] ; do
-	inotifywait --recursive --timeout ${SYNC_INTERVAL} -e ${WATCH_EVENTS} \
+	$INOTIFY_WAIT --recursive --timeout ${SYNC_INTERVAL} -e ${WATCH_EVENTS} \
 		    ${RCLONE_SYNC_PATH} 2>/dev/null
 	if [ $? -eq 0 ]; then
 	    # File change detected, sync the files after waiting a few seconds:
@@ -86,6 +96,7 @@ rclone_sync() {
 	elif [ $? -eq 1 ]; then
 	    # inotify error occured
 	    notify "inotifywait error exit code 1"
+        echo "Error: $?"
         sleep 10
 	elif [ $? -eq 2 ]; then
 	    # Do the sync now even though no changes were detected:

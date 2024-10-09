@@ -1,4 +1,4 @@
-{ pkgs, userSettings, kitty-config, ... }:
+{ pkgs, userSettings, lib, ... }:
 
 {
   imports = [
@@ -156,7 +156,7 @@
       };
       Service = {
           Type = "notify";
-          ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh}";
+          ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh} ${../../extra/assets/images} ${lib.getExe pkgs.libnotify} ${lib.getExe pkgs.coreutils} ${pkgs.inotify-tools.outPath}/bin/inotifywait";
           Restart = "always";
           RemainAfterExit = "no";
           TimeoutSec = 0;

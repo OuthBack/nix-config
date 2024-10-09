@@ -31,6 +31,9 @@ in
             "deno"
         ];
     };
+    initExtr = """
+        bindkey -v
+    """;
   };
 
   programs.bash = {
