@@ -30,6 +30,15 @@
 
 ## Edit the variables below, according to your own environment:
 
+# SYNC_SCRIPT: dynamic reference to the current script path
+SYNC_SCRIPT=$(realpath $0)
+
+IMAGES_PATH=$1
+NOTIFY_SEND_BIN=$2
+CORE_UTILS_BIN=$3 
+INOTIFY_WAIT=$4
+RCLONE_BIN=$5
+
 # RCLONE_SYNC_PATH: The path to COPY FROM (files are not synced TO here):
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/${UID}/bus}"
 RCLONE_SYNC_PATH="/home/henrique/Documents/Obsidian"
@@ -45,7 +54,7 @@ RCLONE_REMOTE="remote:Obsidian"
 # RCLONE_CMD: The sync command and arguments:
 ## (This example is for one-way sync):
 ## (Consider using other modes like `bisync` or `move` [see `man rclone` for details]):
-RCLONE_CMD="rclone -v bisync ${RCLONE_SYNC_PATH} ${RCLONE_REMOTE}  --conflict-resolve newer"
+RCLONE_CMD="${RCLONE_BIN} -v bisync ${RCLONE_SYNC_PATH} ${RCLONE_REMOTE}  --conflict-resolve newer"
 
 # WATCH_EVENTS: The file events that inotifywait should watch for:
 WATCH_EVENTS="modify,delete,create,move"
@@ -59,13 +68,6 @@ SYNC_INTERVAL=3600
 # NOTIFY_ENABLE: Enable Desktop notifications
 NOTIFY_ENABLE=true
 
-# SYNC_SCRIPT: dynamic reference to the current script path
-SYNC_SCRIPT=$(realpath $0)
-
-IMAGES_PATH=$1
-NOTIFY_SEND_BIN=$2
-CORE_UTILS_BIN=$3 
-INOTIFY_WAIT=$4
 
 sleep() {
     $CORE_UTILS_BIN --coreutils-prog='sleep' $1
@@ -95,8 +97,8 @@ rclone_sync() {
 		notify "Synchronized new file changes"
 	elif [ $? -eq 1 ]; then
 	    # inotify error occured
-	    notify "inotifywait error exit code 1"
         echo "Error: $?"
+	    notify "inotifywait error exit code 1"
         sleep 10
 	elif [ $? -eq 2 ]; then
 	    # Do the sync now even though no changes were detected:

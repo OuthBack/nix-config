@@ -91,6 +91,10 @@
       zoom-us
       teamspeak_client
       inotify-tools
+      gnumake
+      lua-language-server
+      stylua
+      devenv
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -156,7 +160,7 @@
       };
       Service = {
           Type = "notify";
-          ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh} ${../../extra/assets/images} ${lib.getExe pkgs.libnotify} ${lib.getExe pkgs.coreutils} ${pkgs.inotify-tools.outPath}/bin/inotifywait";
+          ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh} ${../../extra/assets/images} ${lib.getExe pkgs.libnotify} ${lib.getExe pkgs.coreutils} ${pkgs.inotify-tools.outPath}/bin/inotifywait ${lib.getExe pkgs.coreutils}";
           Restart = "always";
           RemainAfterExit = "no";
           TimeoutSec = 0;
