@@ -31,7 +31,7 @@ in
             "deno"
         ];
     };
-    initExtra = "
+    initContent = "
         bindkey -v
     ";
   };

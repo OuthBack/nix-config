@@ -57,7 +57,7 @@
             wm = "i3"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
             browser = "vivaldi"; # Default browser; must select one from ./user/app/browser/
             term = "kitty"; # Default terminal command;
-        font = "Cascadia Code"; # Selected font | Cascadia Code or Jetbrains mono
+            font = "Cascadia Code"; # Selected font | Cascadia Code or Jetbrains mono
             fontPkg = pkgs.cascadia-code; # Font package | cascadia-code or jetbrains-mono
             editor = "nvim"; # Default editor;
     };

@@ -95,6 +95,12 @@
       lua-language-server
       stylua
       devenv
+      docker
+      docker-compose
+      google-chrome
+      python3
+      unzip
+      lua51Packages.luarocks
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -157,6 +163,7 @@
   systemd.user.services.obsidian-sync = {
       Unit = {
           Description = "Run obsidian-sync.";
+          After = "dbus.service nix-daemon.service";
       };
       Service = {
           Type = "notify";

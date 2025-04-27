@@ -59,8 +59,10 @@
   services.xserver = {
     videoDrivers = ["nvidia"];
     enable = true;
-    layout = "us";
-    xkbVariant = "intl";
+    xkb = {
+        layout = "us";
+        variant = "intl";
+    };
     windowManager = {
         i3 = {
             enable = true;
@@ -95,7 +97,7 @@
   users.users.henrique = {
     isNormalUser = true;
     description = "henrique";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   environment.shells = with pkgs; [ zsh ];
@@ -116,15 +118,12 @@
     home-manager
   ];
 
-  fonts.packages = with pkgs; [
-      nerdfonts
-  ];
+  fonts.packages = [ ] ++ builtins.filter pkgs.lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   # environment.variables.EDITOR = "kitty";
   # environment.variables.TERMINAL = "kitty";
 
   hardware.opengl = {
     enable = true;
-    driSupport = true;
     driSupport32Bit = true;
   };
   hardware.nvidia = {
@@ -184,5 +183,19 @@
       jack.enable = true;
   };
   users.extraUsers.henrique.extraGroups = [ "jackaudio" ];
-
+  virtualisation = { 
+      oci-containers = {
+          backend = "docker";
+      };
+      docker = { 
+          enable = true;
+          rootless = {
+              enable = true;
+              setSocketVariable = true;
+          };
+          daemon.settings = {
+# data-root = "";
+          };
+      };
+  };
 }
