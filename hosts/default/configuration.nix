@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, userSettings, ... }:
+{ inputs, config, pkgs, unstable-pkgs, userSettings, ... }:
 
 {
   imports =
@@ -112,19 +112,26 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    home-manager
-  ];
 
-  fonts.packages = [ ] ++ builtins.filter pkgs.lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  environment.systemPackages = let 
+    stable = with pkgs; [
+        wget
+        home-manager
+    ];
+    unstable = with unstable-pkgs; [
+        neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    ];
+  in stable ++ unstable;
+
+  fonts.packages = with pkgs; [
+      nerdfonts
+  ];
   # environment.variables.EDITOR = "kitty";
   # environment.variables.TERMINAL = "kitty";
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
   hardware.nvidia = {
     modesetting.enable = true;

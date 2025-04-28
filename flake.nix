@@ -1,9 +1,10 @@
 {
     description = "Nixos config flake";
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "github:nix-community/home-manager/0b491b460f52e87e23eb17bbf59c6ae64b7664c1";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         kitty-config = {
@@ -20,13 +21,12 @@
 
     };
 
-    outputs = { self, nixpkgs, home-manager, kitty-config, ... }@inputs: 
+    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, kitty-config, ... }@inputs: 
 
-        let
-
+    let
     system = "x86_64-linux";
 
-# configure pkgs
+    # configure pkgs
 
     nixpkgs-patched =
         (import nixpkgs { system = system; }).applyPatches {
@@ -47,6 +47,11 @@
              })
         ];
     };   
+
+    unstable-pkgs = import nixpkgs-unstable {
+        system = system;
+        config.allowUnfree = true;
+    };
 
     userSettings = {
         username = "henrique"; # username
@@ -71,12 +76,14 @@
             specialArgs = {
                 inherit inputs;
                 inherit userSettings;
+                inherit unstable-pkgs;
             };
             modules = [
                 ./hosts/default/configuration.nix
                 inputs.home-manager.nixosModules.default
             ];
         };
+
 
     };
 }
