@@ -101,6 +101,7 @@
       python3
       unzip
       lua51Packages.luarocks
+      rustup
       rust-analyzer
   ];
   
