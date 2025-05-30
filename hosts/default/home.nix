@@ -101,6 +101,7 @@
       python3
       unzip
       lua51Packages.luarocks
+      rust-analyzer
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
