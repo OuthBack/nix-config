@@ -66,7 +66,6 @@
       barrier
       bitwarden
       nodejs_22
-      cargo
       libreoffice
       obsidian
       rclone
