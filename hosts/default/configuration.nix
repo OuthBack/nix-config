@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, unstable-pkgs, userSettings, ... }:
+{ inputs, config, pkgs, unstable-pkgs, userSettings, lib, ... }:
 
 {
   imports =
@@ -75,20 +75,13 @@
             package = pkgs.i3-gaps;
         };
     };
-    desktopManager = {
-      xfce = {
-        enable = true;
-        thunarPlugins = [ pkgs.xfce.thunar-archive-plugin ];
-        
-      };
-    };
   };
 
 # Configure console keymap
   console.keyMap = "br-abnt2";
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; inherit userSettings; };
+    extraSpecialArgs = { inherit inputs; inherit userSettings; inherit unstable-pkgs; };
     users = {
       "henrique" = import ./home.nix;
     };
@@ -103,6 +96,9 @@
   environment.shells = with pkgs; [ zsh ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
+  programs.thunar.plugins = [ pkgs.xfce.thunar-archive-plugin ]; 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.dev.enable = false;
 
   # Enable automatic login for the user.
   services.getty.autologinUser = "henrique";
@@ -123,9 +119,7 @@
     ];
   in stable ++ unstable;
 
-  fonts.packages = with pkgs; [
-      nerdfonts
-  ];
+  fonts.packages = [] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   # environment.variables.EDITOR = "kitty";
   # environment.variables.TERMINAL = "kitty";
 
@@ -162,6 +156,8 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 24800 ];
   networking.firewall.allowedUDPPorts = [ 24800 ];
@@ -174,7 +170,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   # sound
 

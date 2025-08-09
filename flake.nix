@@ -1,14 +1,18 @@
 {
     description = "Nixos config flake";
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
         nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager = {
-            url = "github:nix-community/home-manager/0b491b460f52e87e23eb17bbf59c6ae64b7664c1";
+            url = "github:nix-community/home-manager/bb846c031be68a96466b683be32704ef6e07b159";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         kitty-config = {
             url = "github:OuthBack/kitty-config";
+        };
+        nix-ld = {
+            url = "github:Mic92/nix-ld";
+            inputs.nixpkgs.follows = "nixpkgs-unstable";
         };
 # android-nixpkgs = {
 #     url = "github:tadfisher/android-nixpkgs";
@@ -21,7 +25,7 @@
 
     };
 
-    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, kitty-config, ... }@inputs: 
+    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, kitty-config, nix-ld, ... }@inputs: 
 
     let
     system = "x86_64-linux";
@@ -81,6 +85,11 @@
             modules = [
                 ./hosts/default/configuration.nix
                 inputs.home-manager.nixosModules.default
+                nix-ld.nixosModules.nix-ld
+                { 
+                    programs.nix-ld.enable = true;
+                    programs.nix-ld.dev.enable = false;
+                }
             ];
         };
 

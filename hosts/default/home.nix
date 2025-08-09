@@ -1,4 +1,4 @@
-{ pkgs, userSettings, lib, ... }:
+{ pkgs, userSettings, unstable-pkgs, lib, ... }:
 
 {
   imports = [
@@ -24,86 +24,87 @@
   # environment.
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
-  home.packages = with pkgs;
-    let
+  home.packages = let
       polybar = pkgs.polybar.override {
         i3Support = true;
       };
+      unstable = with unstable-pkgs; [
+          spotify
+      ];
+      stable = with pkgs; [
+          # # Adds the 'hello' command to your environment. It prints a friendly
+          # # "Hello, world!" when run.
+          # pkgs.hello
+
+          # # It is sometimes useful to fine-tune packages, for example, by applying
+          # # overrides. You can do that directly here, just don't forget the
+          # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+          # # fonts?
+          # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+
+          # # You can also create simple shell scripts directly inside your
+          # # configuration. For example, this adds a command 'my-hello' to your
+          # # environment:
+          # (pkgs.writeShellScriptBin "my-hello" ''
+          #   echo "Hello, ${config.home.username}!"
+          # '')
+
+          vivaldi
+          git
+          gcc_multi
+          i3
+          kitty
+          picom
+          tmux
+          clipmenu
+          polybar
+          rofi
+          flameshot
+          oh-my-zsh
+          fzf
+          ripgrep
+          barrier
+          bitwarden
+          nodejs_22
+          libreoffice
+          obsidian
+          rclone
+          postman
+          #sound
+          qjackctl
+          pavucontrol
+          # discord
+          # Using vesktop for discord
+          vesktop
+          xfce.thunar
+          xfce.thunar-archive-plugin
+          xarchiver
+          gimp
+          obs-studio
+          vlc
+          gparted
+          dunst
+          libnotify
+          direnv
+          zoom-us
+          teamspeak_client
+          inotify-tools
+          gnumake
+          lua-language-server
+          stylua
+          devenv
+          docker
+          docker-compose
+          google-chrome
+          python3
+          unzip
+          lua51Packages.luarocks
+          rustc
+          cargo
+          rust-analyzer
+          ];
     in
-  [
-
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-
-      vivaldi
-      git
-      gcc_multi
-      i3
-      kitty
-      picom
-      tmux
-      clipmenu
-      polybar
-      rofi
-      flameshot
-      oh-my-zsh
-      fzf
-      ripgrep
-      barrier
-      bitwarden
-      nodejs_22
-      libreoffice
-      obsidian
-      rclone
-      postman
-      #sound
-      qjackctl
-      pavucontrol
-      spotify
-      # discord
-      # Using vesktop for discord
-      vesktop
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xarchiver
-      gimp
-      obs-studio
-      vlc
-      gparted
-      dunst
-      libnotify
-      direnv
-      zoom-us
-      teamspeak_client
-      inotify-tools
-      gnumake
-      lua-language-server
-      stylua
-      devenv
-      docker
-      docker-compose
-      google-chrome
-      python3
-      unzip
-      lua51Packages.luarocks
-      rustc
-      cargo
-      rust-analyzer
-  ];
+    stable ++ unstable;
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -162,20 +163,20 @@
   # Allow unfree
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.obsidian-sync = {
-      Unit = {
-          Description = "Run obsidian-sync.";
-          After = "dbus.service nix-daemon.service";
-      };
-      Service = {
-          Type = "notify";
-          ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh} ${../../extra/assets/images} ${lib.getExe pkgs.libnotify} ${lib.getExe pkgs.coreutils} ${pkgs.inotify-tools.outPath}/bin/inotifywait ${lib.getExe pkgs.coreutils}";
-          Restart = "always";
-          RemainAfterExit = "no";
-          TimeoutSec = 0;
-      };
-      Install = {
-          WantedBy = [ "default.target" ];
-      };
-  };
+  # systemd.user.services.obsidian-sync = {
+  #     Unit = {
+  #         Description = "Run obsidian-sync.";
+  #         After = "dbus.service nix-daemon.service";
+  #     };
+  #     Service = {
+  #         Type = "notify";
+  #         ExecStart = "/bin/sh ${../../extra/daemons/obsidian-sync.sh} ${../../extra/assets/images} ${lib.getExe pkgs.libnotify} ${pkgs.coreutils}/bin/coreutils ${pkgs.inotify-tools.outPath}/bin/inotifywait ${lib.getExe pkgs.rclone}";
+  #         Restart = "always";
+  #         RemainAfterExit = "no";
+  #         TimeoutSec = 0;
+  #     };
+  #     Install = {
+  #         WantedBy = [ "default.target" ];
+  #     };
+  # };
   }
